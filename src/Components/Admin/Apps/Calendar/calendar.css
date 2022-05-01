@@ -1,0 +1,14 @@
+.fc .fc-col-header-cell-cushion {
+	display: inline-block;
+	color: #ff5722;
+	text-decoration: none;
+}
+
+a.fc-daygrid-day-number {
+	text-decoration: none;
+}
+
+:root {
+	--fc-border-color: #f5f5f5;
+	--fc-daygrid-event-dot-width: 5px;
+}

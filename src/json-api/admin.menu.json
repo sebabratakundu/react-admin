@@ -1,0 +1,84 @@
+[
+	{
+		"category": "dashboard",
+		"menus": [
+			{
+				"label": "modern",
+				"link": "dashboard/modern",
+				"icon": "airplay"
+			},
+			{
+				"label": "analytics",
+				"link": "dashboard/analytics",
+				"icon": "auto_graph"
+			},
+			{
+				"label": "ecommerce",
+				"link": "dashboard/ecommerce",
+				"icon": "shopping_bag"
+			}
+		]
+	},
+	{
+		"category": "apps",
+		"menus": [
+			{
+				"label": "chat",
+				"link": "chat",
+				"icon": "chat_bubble_outlined"
+			},
+			{
+				"label": "notes",
+				"link": "apps/note",
+				"icon": "description"
+			},
+			{
+				"label": "mail",
+				"icon": "mail",
+				"isDropdown": true,
+				"dropdown": [
+					{
+						"label": "inbox",
+						"link": "inbox",
+						"icon": "inbox"
+					},
+					{
+						"label": "sent",
+						"link": "sent",
+						"icon": "send"
+					},
+					{
+						"label": "drafts",
+						"link": "drafts",
+						"icon": "drafts"
+					}
+				]
+			},
+			{
+				"label": "calender",
+				"link": "apps/calendar",
+				"icon": "schedule"
+			},
+			{
+				"label": "customers",
+				"link": "customers",
+				"icon": "group"
+			}
+		]
+	},
+	{
+		"category": "authentication",
+		"menus": [
+			{
+				"label": "reset password",
+				"link": "reset-password",
+				"icon": "password"
+			},
+			{
+				"label": "logout",
+				"link": "logout",
+				"icon": "logout"
+			}
+		]
+	}
+]

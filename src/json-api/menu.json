@@ -1,0 +1,22 @@
+[
+	{
+		"label": "Dashboard",
+		"link": "dashboard"
+	},
+	{
+		"label": "Home",
+		"link": "/"
+	},
+	{
+		"label": "About",
+		"link": "/"
+	},
+	{
+		"label": "Services",
+		"link": "/"
+	},
+	{
+		"label": "Contact Us",
+		"link": "/"
+	}
+]
