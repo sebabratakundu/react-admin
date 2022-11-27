@@ -6,16 +6,15 @@ import {
 	List,
 	ListItem,
 	ListItemButton,
-	ListItemIcon,
 	ListItemText, ListSubheader, OutlinedInput,
-	Stack, Typography
+	Stack
 } from "@mui/material";
 import JoditEditor from "jodit-react";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {createNoteRequest, deleteNoteRequest, viewNoteRequest} from "./note.action";
 import {toast} from "react-toastify";
-import * as PropTypes from "prop-types";
+import {RESET_NOTE} from "./note.state";
 
 function NoteItem({note, setNote, deleteNote}) {
 
@@ -39,7 +38,6 @@ function NoteItem({note, setNote, deleteNote}) {
 	)
 }
 
-NoteItem.propTypes = {};
 const Note = () => {
 	const [show, setShow] = useState(false);
 	const [note, setNote] = useState('');
@@ -74,11 +72,6 @@ const Note = () => {
 		}
 	}
 
-	useEffect(() => {
-		getNotes();
-		checkCreateNote();
-	}, [noteReducer]);
-
 	const saveNote = () => {
 		const {userId} = JSON.parse(sessionStorage.getItem('userInfo'));
 
@@ -96,62 +89,70 @@ const Note = () => {
 		newFile();
 	}
 
+	useEffect(() => {
+		getNotes();
+		checkCreateNote();
+
+		return () => dispatch({type: RESET_NOTE});
+	}, [noteReducer]);
+
 	return (
-	  <>
-		  <Card
-			  className="shadow-sm p-4"
-			  sx={{
-				  bgcolor: adminReducer.dark ? '#1e1e1e' : 'white'
-			  }}
-		  >
-			  <CardContent>
-				  <Grid container spacing={5}>
-					  <Grid item xs={12} sm={3}>
-						  <Stack direction="row" justifyContent="space-between" className="mb-3">
-							  <Button variant="outlined" color="primary">New File</Button>
-							  <Button variant="outlined" color="success" onClick={() => setShow(old => !old)}>Save File</Button>
-						  </Stack>
-						  {
-							  show ? <FormControl variant="outlined" color="success" fullWidth className="mb-3">
-								  <InputLabel htmlFor="filename">Filename</InputLabel>
-								  <OutlinedInput
-									  type="text"
-									  name="filename"
-									  id="filename"
-									  label="Filename"
-									  value={filename}
-									  onChange={(e) => setFilename(e.currentTarget.value)}
-									  endAdornment={
-										  <InputAdornment position="end">
-											  <IconButton edge="end" color="success" onClick={saveNote}>
-												  <span className="material-icons-outlined">save</span>
-											  </IconButton>
-										  </InputAdornment>
-									  }
-								  />
-							  </FormControl> : null
-						  }
-						  <Divider/>
-						  <Stack>
-							  <List subheader={<ListSubheader>Saved Files</ListSubheader>}>
-								  {
-									  noteReducer.data.map((note, index) => <NoteItem key={index} note={note} setNote={setNote} deleteNote={deleteNote}/>)
-								  }
-							  </List>
-						  </Stack>
-					  </Grid>
-					  <Grid item xs={12} sm={9}>
-						  <JoditEditor
-							  value={note}
-							  onBlur={(data) => setNote(data)}
-							  config={joditConfig}
-						  />
-					  </Grid>
-				  </Grid>
-			  </CardContent>
-		  </Card>
-	  </>
-  )
+		<>
+			<Card
+				className="shadow-sm p-4"
+				sx={{
+					bgcolor: adminReducer.dark ? '#1e1e1e' : 'white'
+				}}
+			>
+				<CardContent>
+					<Grid container spacing={5}>
+						<Grid item xs={12} sm={3}>
+							<Stack direction="row" justifyContent="space-between" className="mb-3">
+								<Button variant="outlined" color="primary">New File</Button>
+								<Button variant="outlined" color="success" onClick={() => setShow(old => !old)}>Save
+									File</Button>
+							</Stack>
+							{
+								show ? <FormControl variant="outlined" color="success" fullWidth className="mb-3">
+									<InputLabel htmlFor="filename">Filename</InputLabel>
+									<OutlinedInput
+										type="text"
+										name="filename"
+										id="filename"
+										label="Filename"
+										value={filename}
+										onChange={(e) => setFilename(e.currentTarget.value)}
+										endAdornment={
+											<InputAdornment position="end">
+												<IconButton edge="end" color="success" onClick={saveNote}>
+													<span className="material-icons-outlined">save</span>
+												</IconButton>
+											</InputAdornment>
+										}
+									/>
+								</FormControl> : null
+							}
+							<Divider/>
+							<Stack>
+								<List subheader={<ListSubheader>Saved Files</ListSubheader>}>
+									{
+										noteReducer.data.map((note, index) => <NoteItem key={index} note={note} setNote={setNote} deleteNote={deleteNote}/>)
+									}
+								</List>
+							</Stack>
+						</Grid>
+						<Grid item xs={12} sm={9}>
+							<JoditEditor
+								value={note}
+								onBlur={(data) => setNote(data)}
+								config={joditConfig}
+							/>
+						</Grid>
+					</Grid>
+				</CardContent>
+			</Card>
+		</>
+	)
 }
 
 export default Note;

@@ -11,11 +11,10 @@ import {
 	ListItemText, ListSubheader, Menu, MenuItem, Stack, Switch,
 	Toolbar, Typography
 } from "@mui/material";
-import {createContext, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import menus from './../../json-api/admin.menu.json';
-import {deepPurple} from "@mui/material/colors";
 import MediaQuery from "react-responsive";
-import {Logout, Mail, PersonAdd, Settings} from "@mui/icons-material";
+import {Logout, PersonAdd, Settings} from "@mui/icons-material";
 import {useDispatch, useSelector} from "react-redux";
 import {logoutRequest} from "../Login/login.action";
 

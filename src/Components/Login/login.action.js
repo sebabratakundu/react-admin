@@ -4,7 +4,7 @@ import {
 	LOGIN_SUCCESS,
 	LOGOUT_FAILED,
 	LOGOUT_SUCCESS,
-	USERNAME_NOT_FOUND, VERIFY_TOKEN, VERIFY_TOKEN_FAILED, VERIFY_TOKEN_SUCCESS
+	USERNAME_NOT_FOUND,
 } from "./login.state";
 import axios from "axios";
 import Cookies from "universal-cookie";

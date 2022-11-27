@@ -1,4 +1,4 @@
-import {Card, CardContent, Grid} from "@mui/material";
+import {Card, Grid} from "@mui/material";
 import Chart from "react-apexcharts";
 import {useSelector} from "react-redux";
 

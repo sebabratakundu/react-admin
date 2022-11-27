@@ -1,12 +1,12 @@
 import {
 	CREATE_NOTE_FAILED,
 	CREATE_NOTE_REQUEST,
-	CREATE_NOTE_SUCCESS, DELETE_NOTE_FAILED, DELETE_NOTE_REQUEST, DELETE_NOTE_SUCCESS, VIEW_NOTE_FAILED,
+	CREATE_NOTE_SUCCESS, DELETE_NOTE_FAILED, DELETE_NOTE_REQUEST, DELETE_NOTE_SUCCESS, RESET_NOTE, VIEW_NOTE_FAILED,
 	VIEW_NOTE_REQUEST,
 	VIEW_NOTE_SUCCESS
 } from "./note.state";
 
-const Model = {
+const initalState = {
 	isLoading: false,
 	createSuccess: false,
 	createFailed: false,
@@ -18,7 +18,7 @@ const Model = {
 	error: []
 }
 
-const noteReducer = (state = Model, action) => {
+const noteReducer = (state = initalState, action) => {
 	switch (action.type) {
 		case CREATE_NOTE_REQUEST:
 			return {
@@ -122,6 +122,17 @@ const noteReducer = (state = Model, action) => {
 				deleteFailed: true,
 				data: [],
 				error: action.error
+			}
+		case RESET_NOTE:
+			return {
+				...state,
+				isLoading: false,
+				createSuccess: false,
+				createFailed: false,
+				viewSuccess: false,
+				viewFailed: false,
+				deleteSuccess: false,
+				deleteFailed: false,
 			}
 		default: return state;
 	}

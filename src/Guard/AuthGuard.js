@@ -2,8 +2,8 @@ import Cookies from 'universal-cookie';
 import {Navigate, Outlet} from "react-router-dom";
 import axios from "axios";
 import {useAsync} from "react-async";
-import {useDispatch, useSelector} from "react-redux";
-import {useEffect} from "react";
+
+axios.defaults.baseURL = process.env.REACT_APP_API_HOST;
 
 const verifyToken = async ({token}) => {
 	try {
