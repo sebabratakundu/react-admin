@@ -55,23 +55,6 @@ const Note = () => {
 		setShow(false);
 	}
 
-	const checkCreateNote = () => {
-		if (noteReducer.createSuccess) {
-			toast.success('note saved!');
-			newFile();
-		} else if (noteReducer.createFailed) {
-			toast.error(noteReducer.error.data.message);
-		}
-	};
-
-	const getNotes = () => {
-		const {userId} = JSON.parse(sessionStorage.getItem('userInfo'));
-
-		if (noteReducer.viewSuccess === null) {
-			dispatch(viewNoteRequest(userId));
-		}
-	}
-
 	const saveNote = () => {
 		const {userId} = JSON.parse(sessionStorage.getItem('userInfo'));
 
@@ -90,10 +73,29 @@ const Note = () => {
 	}
 
 	useEffect(() => {
+
+		const checkCreateNote = () => {
+			if (noteReducer.createSuccess) {
+				toast.success('note saved!');
+				newFile();
+			} else if (noteReducer.createFailed) {
+				toast.error(noteReducer.error.data.message);
+			}
+		};
+
+		const getNotes = () => {
+			const {userId} = JSON.parse(sessionStorage.getItem('userInfo'));
+
+			if (noteReducer.viewSuccess === null) {
+				dispatch(viewNoteRequest(userId));
+			}
+		}
 		getNotes();
 		checkCreateNote();
 
 		return () => dispatch({type: RESET_NOTE});
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [noteReducer]);
 
 	return (

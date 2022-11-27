@@ -49,20 +49,22 @@ const Signup = () => {
 	const {signupReducer} = useSelector(res => res);
 	const cookie = new Cookies();
 
-	const checkSignup = () => {
-		if (signupReducer && signupReducer.isLoading) {
-		} else if (signupReducer && signupReducer.data) {
-			toast.success('Register Success!');
-			cookie.set('authToken', signupReducer.data.token, {maxAge: 24 * 60 * 60});
-		} else if (signupReducer && signupReducer.error) {
-			toast.error(signupReducer.error);
-		}
-	}
-
 	useEffect(() => {
+		const checkSignup = () => {
+			if (signupReducer && signupReducer.isLoading) {
+			} else if (signupReducer && signupReducer.data) {
+				toast.success('Register Success!');
+				cookie.set('authToken', signupReducer.data.token, {maxAge: 24 * 60 * 60});
+			} else if (signupReducer && signupReducer.error) {
+				toast.error(signupReducer.error);
+			}
+		}
+
 		checkSignup();
 
 		return () => dispatch({type: SIGNUP_RESET});
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [signupReducer])
 
 	const setInputValue = (e) => {

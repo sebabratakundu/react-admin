@@ -37,82 +37,84 @@ const ForgotPassword = () => {
 	const {forgotReducer} = useSelector(res => res);
 	const navigate = useNavigate();
 
-	const checkUser = () => {
-		if (forgotReducer.emailSent) {
-			toast.success(forgotReducer.data.message);
-			setShowPasswordForm(true);
-			setError(() => {
-				return {
-					email: {
-						state: false,
-						message: ''
-					},
-					code: {
-						state: false,
-						message: ''
-					},
-					password: {
-						state: false,
-						message: ''
-					}
-				}
-			});
-		}
-
-		if (forgotReducer.error && forgotReducer.userNotFound) {
-			setError((old) => {
-				return {
-					...old,
-					email: {
-						state: true,
-						message: forgotReducer.error.data.message
-					}
-				}
-			});
-		}
-	};
-
-	const checkPassword = () => {
-		if (forgotReducer.passwordChanged) {
-			toast.success(forgotReducer.data.message);
-			setError(() => {
-				return {
-					email: {
-						state: false,
-						message: ''
-					},
-					code: {
-						state: false,
-						message: ''
-					},
-					password: {
-						state: false,
-						message: ''
-					}
-				}
-			});
-
-			navigate('/signin');
-		}
-
-		if (forgotReducer.error && forgotReducer.codeNotMatched) {
-			setError((old) => {
-				return {
-					...old,
-					code: {
-						state: true,
-						message: forgotReducer.error.data.message
-					}
-				}
-			});
-		} else if (forgotReducer.error) {
-			toast.error(forgotReducer.error.data.message);
-		}
-	};
-
 	useEffect(() => {
+		const checkUser = () => {
+			if (forgotReducer.emailSent) {
+				toast.success(forgotReducer.data.message);
+				setShowPasswordForm(true);
+				setError(() => {
+					return {
+						email: {
+							state: false,
+							message: ''
+						},
+						code: {
+							state: false,
+							message: ''
+						},
+						password: {
+							state: false,
+							message: ''
+						}
+					}
+				});
+			}
+
+			if (forgotReducer.error && forgotReducer.userNotFound) {
+				setError((old) => {
+					return {
+						...old,
+						email: {
+							state: true,
+							message: forgotReducer.error.data.message
+						}
+					}
+				});
+			}
+		};
+
+		const checkPassword = () => {
+			if (forgotReducer.passwordChanged) {
+				toast.success(forgotReducer.data.message);
+				setError(() => {
+					return {
+						email: {
+							state: false,
+							message: ''
+						},
+						code: {
+							state: false,
+							message: ''
+						},
+						password: {
+							state: false,
+							message: ''
+						}
+					}
+				});
+
+				navigate('/signin');
+			}
+
+			if (forgotReducer.error && forgotReducer.codeNotMatched) {
+				setError((old) => {
+					return {
+						...old,
+						code: {
+							state: true,
+							message: forgotReducer.error.data.message
+						}
+					}
+				});
+			} else if (forgotReducer.error) {
+				toast.error(forgotReducer.error.data.message);
+			}
+		};
+
 		checkUser();
 		checkPassword();
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [forgotReducer]);
 
 	const sendCode = (e) => {

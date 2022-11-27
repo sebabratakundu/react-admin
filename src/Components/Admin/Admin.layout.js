@@ -101,18 +101,19 @@ const AdminLayout = () => {
 	const dispatch = useDispatch();
 	const {loginReducer, adminReducer} = useSelector(res => res);
 
-
-	const checkUser = () => {
-		if (loginReducer.isLoggedOut) {
-			navigate('/signin');
-			dispatch({type: 'light'});
-		} else if (loginReducer.isLoggedIn) {
-			navigate('/admin/dashboard/modern');
-		}
-	};
-
 	useEffect(() => {
+		const checkUser = () => {
+			if (loginReducer.isLoggedOut) {
+				navigate('/signin');
+				dispatch({type: 'light'});
+			} else if (loginReducer.isLoggedIn) {
+				navigate('/admin/dashboard/modern');
+			}
+		};
+
 		checkUser();
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [loginReducer]);
 
 	if (!user) {

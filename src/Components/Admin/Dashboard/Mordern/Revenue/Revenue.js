@@ -30,25 +30,25 @@ const Revenue = () => {
 		}
 	}
 
-	const getRevenue = () => {
-		dispatch(revenueRequest());
-	};
-
-	const setRevenue = () => {
-		setSeries([
-			{
-				name: 'Earning',
-				data: revenueReducer.data.earning
-			},
-			{
-				name: 'Expenses',
-				data: revenueReducer.data.expenses
-			}
-		]);
-		setCategories(revenueReducer.data.months);
-	};
-
 	useEffect(() => {
+		const getRevenue = () => {
+			dispatch(revenueRequest());
+		};
+
+		const setRevenue = () => {
+			setSeries([
+				{
+					name: 'Earning',
+					data: revenueReducer.data.earning
+				},
+				{
+					name: 'Expenses',
+					data: revenueReducer.data.expenses
+				}
+			]);
+			setCategories(revenueReducer.data.months);
+		};
+
 		if (revenueReducer.isLoading === null) {
 			getRevenue();
 		}
@@ -56,6 +56,8 @@ const Revenue = () => {
 		if (revenueReducer.success) {
 			setRevenue();
 		}
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [revenueReducer]);
 
   return (

@@ -47,51 +47,54 @@ const Login = () => {
 	const dispatch = useDispatch();
 	const {loginReducer} = useSelector(res => res);
 
-	const checkLogin = () => {
-		if (loginReducer.isUserNotFound) {
-			setError(() => {
-				return {
-					username: {
-						state: true,
-						message: loginReducer.error
-					},
-					password: {
-						state: false,
-						message: ''
-					}
-				}
-			});
-		} else if (loginReducer.isIncorrectPassword) {
-			setError(() => {
-				return {
-					username: {
-						state: false,
-						message: ''
-					},
-					password: {
-						state: true,
-						message: loginReducer.error
-					}
-				}
-			});
-		} else if (loginReducer.isLoggedIn) {
-			cookie.set('authToken', loginReducer.data.token, {maxAge: 60 * 60 * 24});
-			navigate('/admin');
-		}
-	}
-
-	const checkRememberMe = () => {
-		const userCred = localStorage.getItem('userCred');
-		if (userCred != null) {
-			setInput(JSON.parse(userCred));
-			setChecked(true);
-			setDisabled(false);
-		}
-	};
-
 	useEffect(() => {
+
+		const checkLogin = () => {
+			if (loginReducer.isUserNotFound) {
+				setError(() => {
+					return {
+						username: {
+							state: true,
+							message: loginReducer.error
+						},
+						password: {
+							state: false,
+							message: ''
+						}
+					}
+				});
+			} else if (loginReducer.isIncorrectPassword) {
+				setError(() => {
+					return {
+						username: {
+							state: false,
+							message: ''
+						},
+						password: {
+							state: true,
+							message: loginReducer.error
+						}
+					}
+				});
+			} else if (loginReducer.isLoggedIn) {
+				cookie.set('authToken', loginReducer.data.token, {maxAge: 60 * 60 * 24});
+				navigate('/admin');
+			}
+		}
+
+		const checkRememberMe = () => {
+			const userCred = localStorage.getItem('userCred');
+			if (userCred != null) {
+				setInput(JSON.parse(userCred));
+				setChecked(true);
+				setDisabled(false);
+			}
+		};
+
 		checkLogin();
 		checkRememberMe();
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [loginReducer]);
 
 	const setInputValue = (e) => {
