@@ -1,4 +1,4 @@
-import {SIGNUP_ERROR, SIGNUP_REQUEST, SIGNUP_SUCCESS} from "./signup.state";
+import {SIGNUP_ERROR, SIGNUP_REQUEST, SIGNUP_RESET, SIGNUP_SUCCESS} from "./signup.state";
 
 const defaultState = {
 	isLoading: false,
@@ -29,6 +29,7 @@ const signupReducer = (state = defaultState, action) => {
 				isLoading: false,
 				error: action.error
 			}
+		case SIGNUP_RESET: return defaultState
 		default: return state;
 	}
 }

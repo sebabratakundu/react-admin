@@ -14,6 +14,7 @@ import Cookies from "universal-cookie";
 import {useDispatch, useSelector} from "react-redux";
 import {signupRequest} from "./signup.action";
 import {LoadingButton} from "@mui/lab";
+import {SIGNUP_RESET} from "./signup.state";
 
 const Signup = () => {
 	const signupForm = {
@@ -58,16 +59,19 @@ const Signup = () => {
 		}
 	}
 
-	useEffect(checkSignup, [signupReducer])
+	useEffect(() => {
+		checkSignup();
 
+		return () => dispatch({type: SIGNUP_RESET});
+	}, [signupReducer])
 
 	const setInputValue = (e) => {
-	  const key = e.target.name;
-	  const value = e.target.value;
+		const key = e.target.name;
+		const value = e.target.value;
 
-	  setInput(old => {
-		  return {...old, [key]: value};
-	  });
+		setInput(old => {
+			return {...old, [key]: value};
+		});
 	}
 
 	const fullNameValidation = (e) => {
@@ -142,7 +146,7 @@ const Signup = () => {
 	}
 
 	const checkEmail = (email) => {
-	  const emailRegEx = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+		const emailRegEx = /^[\w-.]+@([\w-]+.)+[\w-]{2,4}$/g;
 
 		if (!emailRegEx.test(email)) {
 			return {
@@ -186,7 +190,7 @@ const Signup = () => {
 	}
 
 	const checkPassword = (password) => {
-	  const passwordRegEx = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=)/g;
+		const passwordRegEx = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=)/g;
 
 		if (!passwordRegEx.test(password)) {
 			return {
@@ -224,8 +228,8 @@ const Signup = () => {
 	}
 
 	const signup = (e) => {
-	  e.preventDefault();
-	  const isValid = validateFormOnSubmit();
+		e.preventDefault();
+		const isValid = validateFormOnSubmit();
 
 		if (isValid) {
 			dispatch(signupRequest(input));
@@ -305,7 +309,8 @@ const Signup = () => {
 											label="I accept terms & condition"
 										/>
 									</FormGroup>
-									<Button type="button" color="primary" size="large" component={Link} to="/signin">already have an account</Button>
+									<Button type="button" color="primary" size="large" component={Link} to="/signin">already
+										have an account</Button>
 								</Stack>
 								<div>
 									<LoadingButton
