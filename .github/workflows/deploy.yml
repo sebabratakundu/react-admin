@@ -21,9 +21,9 @@ jobs:
       - name: Build app
         run: npm run build
       - name: FTP Upload
-        uses: sebastianpopp/ftp-action@releases/v2
+        uses: SamKirkland/FTP-Deploy-Action@4.3.2
         with:
-          host: ${{ secrets.FTP_HOST }}
-          user: ${{ secrets.FTP_UNAME }}
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_UNAME }}
           password: ${{ secrets.FTP_PASS }}
-          localDir: "build"
+          local-dir: "./build/"
