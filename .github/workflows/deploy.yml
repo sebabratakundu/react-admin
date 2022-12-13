@@ -27,4 +27,4 @@ jobs:
           host: ${{ secrets.FTP_HOST }}
           user: ${{ secrets.FTP_UNAME }}
           password: ${{ secrets.FTP_PASS }}
-          local-dir: "build"
+          localDir: "build"
